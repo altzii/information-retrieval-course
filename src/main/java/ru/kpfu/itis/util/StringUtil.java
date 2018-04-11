@@ -10,4 +10,8 @@ public class StringUtil {
         return string.replaceAll("[^А-Яа-я\\s+]", "");
     }
 
+    public static String[] splitToWords(String str) {
+        return str.split("[-–\\u00A0\\s]+");
+    }
+
 }

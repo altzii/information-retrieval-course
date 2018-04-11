@@ -14,7 +14,7 @@ import static ru.kpfu.itis.util.FileUtil.writeDocumentToFile;
  * @author alexander.leontyev
  *         01.03.2018
  */
-public class Starter {
+public class ArticlesParserStarter {
     private static final String PARSE_PAGE_URL = "http://www.mathnet.ru/php/archive.phtml?jrnid=uzku&wshow=issue&" +
             "bshow=contents&series=0&year=2017&volume=159&issue=1&option_lang=rus&bookID=1681";
 
