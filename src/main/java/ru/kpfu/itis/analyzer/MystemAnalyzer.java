@@ -29,7 +29,6 @@ public class MystemAnalyzer extends TextAnalyzer {
             writer.write(word + "\n");
             writer.flush();
             mystemAnswer = reader.readLine();
-            System.out.println(mystemAnswer);
         } catch (Exception e) {
             e.printStackTrace();
         }

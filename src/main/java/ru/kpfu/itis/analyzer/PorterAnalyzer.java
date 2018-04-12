@@ -80,7 +80,6 @@ public class PorterAnalyzer extends TextAnalyzer {
 
         }
 
-        System.out.println("porter: " + word);
         return word;
     }
 }

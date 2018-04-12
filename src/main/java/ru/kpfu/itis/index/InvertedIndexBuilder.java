@@ -25,6 +25,7 @@ import static ru.kpfu.itis.util.StringUtil.splitToWords;
  *         10.04.2018
  */
 public class InvertedIndexBuilder {
+    private static final String INVERTED_INDEX_FILENAME = "inverted_index.xml";
     private DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 
     public void buildIndex(String fileName) throws ParserConfigurationException, IOException, SAXException, TransformerException {
@@ -63,13 +64,10 @@ public class InvertedIndexBuilder {
         Element porterAbstractElem = createElement(porterAbstracts, resultDoc, "porter");
         abstractElem.appendChild(porterAbstractElem);
 
-        writeDocToFile(resultDoc, new File("inverted_index.xml"));
+        writeDocToFile(resultDoc, new File(INVERTED_INDEX_FILENAME));
     }
 
-
-    private Element createElement(NodeList nodeList, Document resultDoc, String tagName) {
-        Element element = resultDoc.createElement(tagName);
-
+    public static HashMap<String, HashSet<String>> getInvertedIndexMap(NodeList nodeList) {
         HashMap<String, HashSet<String>> map = new HashMap<>();
 
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -87,6 +85,27 @@ public class InvertedIndexBuilder {
                 }
             }
         }
+
+        return map;
+    }
+
+    public static HashSet<String> getAllArticlesLinks(Document document) {
+        HashSet<String> articlesLinks = new HashSet<>();
+
+        NodeList articles = document.getElementsByTagName("article");
+
+        for (int i = 0; i < articles.getLength(); i++) {
+            articlesLinks.add(articles.item(i).getAttributes().getNamedItem("link").getTextContent());
+        }
+
+        return articlesLinks;
+    }
+
+
+    private Element createElement(NodeList nodeList, Document resultDoc, String tagName) {
+        Element element = resultDoc.createElement(tagName);
+
+        HashMap<String, HashSet<String>> map = getInvertedIndexMap(nodeList);
 
         for (String word : map.keySet()) {
             Element wordElem = resultDoc.createElement("word");
